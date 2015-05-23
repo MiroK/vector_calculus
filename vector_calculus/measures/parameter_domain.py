@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from sympy import Symbol, Number
+from sympy import Symbol, Number, NumberSymbol
 
 
 class ParameterDomain(object):
@@ -28,7 +28,8 @@ class ParameterDomain(object):
             # Check that the limts are either independent of functions of free
             # parameters
             for l in limits:
-                if not isinstance(l, Number):
+                # pi is a number symbol
+                if not isinstance(l, (Number, NumberSymbol)):
                     assert len(l.atoms().intersection(free_vars)) > 0, \
                         'Bounds must be defined in terms of existing parameters'
 
@@ -37,6 +38,9 @@ class ParameterDomain(object):
 
             # Also to dictionary
             self._domain[var] = limits
+
+            # Unknowns
+            self._parameters = set(self._domain.keys())
 
     def __getitem__(self, var):
         '''Bounds for the var parameter.'''
@@ -54,10 +58,10 @@ class ParameterDomain(object):
         '''Reversed items iterator.'''
         return reversed(self._domain.items())
 
+    @property
     def parameters(self):
         '''Parameters that define the domain.'''
-        return set(self._domain.keys())
-
+        return self._parameters
 
 # -----------------------------------------------------------------------------
 
