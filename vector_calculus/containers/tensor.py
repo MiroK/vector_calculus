@@ -2,6 +2,7 @@ from vector import Vector
 from sympy import Number
 from copy import copy
 from sympy import Matrix
+from sympy import Number, NumberSymbol, Expr
 
 
 class Tensor(object):
@@ -41,7 +42,7 @@ class Tensor(object):
     def __mul__(self, a):
         '''Multiply by scalar.'''
         # Scalar
-        if isinstance(a, (float, int, Number)):
+        if isinstance(a, (float, int, Number, NumberSymbol, Expr)):
             return Tensor([Ai*a for Ai in self])
         # Multiply two tensor
         elif isinstance(a, Tensor):
@@ -57,7 +58,7 @@ class Tensor(object):
             return Tensor(blocks)
         # No other
         else:
-            raise TypeError('Multiply by scalar or another tensor')
+            return NotImplemented
 
     def __pow__(self, n):
         '''Operation for A**n.'''
@@ -75,7 +76,7 @@ class Tensor(object):
 
     def __div__(self, a):
         '''Divide by scalar.'''
-        return Tensor([Ai/a for Ai in self])
+        return Tensor([Ai*(1./a) for Ai in self])
 
     def __neg__(self):
         '''Multiply by -1.'''

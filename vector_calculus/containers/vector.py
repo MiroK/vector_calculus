@@ -1,5 +1,5 @@
 from copy import copy
-from sympy import Matrix
+from sympy import Matrix, Number, NumberSymbol, Expr
 
 
 class Vector(object):
@@ -32,7 +32,10 @@ class Vector(object):
 
     def __mul__(self, a):
         '''Multiply by scalar.'''
-        return Vector([ui*a for ui in self])
+        if isinstance(a, (int, float, Number, NumberSymbol, Expr)):
+            return Vector([ui*a for ui in self])
+        else:
+            return NotImplemented
 
     def __rmul__(self, a):
         '''Multiply by scalar.'''
@@ -40,7 +43,7 @@ class Vector(object):
 
     def __div__(self, a):
         '''Divide by scalar.'''
-        return Vector([ui/a for ui in self])
+        return Vector([ui*(1./a) for ui in self])
 
     def __neg__(self):
         '''Multiply by -1.'''

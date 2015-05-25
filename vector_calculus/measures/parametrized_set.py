@@ -1,7 +1,7 @@
 from parameter_domain import ParameterDomain
 from vector_calculus.containers import Vector, Tensor
 from vector_calculus.operators import dot, cross
-from sympy import Number, symbols, diff, Matrix, sqrt
+from sympy import Number, symbols, diff, Matrix, sqrt, Rational
 from numpy import array, ndarray
 from numpy.linalg import det
 
@@ -46,6 +46,12 @@ class ParametrizedSet(object):
         assert 0 < self._tdim < 4, 'Topological dimension %s not supported' % self._tdim
         assert self._tdim <= self._gdim, 'Topolog. dim > geometric. dim not allowed' 
 
+        # We rememeber mapping as dictionary x->mapping[0], y->mapping[1], ...
+        xyz = symbols('x, y, z')
+        self._mapping = dict((var, comp) for var, comp in zip(xyz, mapping))
+        # Remeber the domain
+        self._pdomain = domain
+
         params = domain.parameters
         # Every mapping has a Jacobian but not every has normal and tangent
         self._n = None
@@ -88,6 +94,15 @@ class ParametrizedSet(object):
     def gdim(self):
         '''Geometrical dimension of set.'''
         return self._gdim
+
+    def substitute(self, f):
+        '''Cartesian coordinates as functions of parameters.'''
+        return f.subs(self._mapping)
+
+    @property
+    def items(self):
+        '''Iterator over parameters of the set and their bounds.'''
+        return self._pdomain.items
 
     @property
     def J(self):
@@ -187,7 +202,7 @@ class CartesianSet(ParametrizedSet):
 
         gdim = tdim
         # Build mapping
-        xi_map = lambda (interval, sym): 0.5*(interval[0]*(1-sym) + interval[1]*(1+sym))
+        xi_map = lambda (interval, sym): Rational(1, 2)*(interval[0]*(1-sym) + interval[1]*(1+sym))
         mapping = tuple(map(xi_map, zip(intervals, smbls)))
 
         ParametrizedSet.__init__(self, domain, mapping)
