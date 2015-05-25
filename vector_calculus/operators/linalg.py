@@ -63,7 +63,7 @@ def cross(u, v):
 
     return Vector([u[1]*v[2] - u[2]*v[1],
                    u[2]*v[0] - u[0]*v[2],
-                   u[0]*v[1] - u[1]*v[2]])
+                   u[0]*v[1] - u[1]*v[0]])
 
 
 def outer(u, v):
@@ -76,7 +76,7 @@ def outer(u, v):
     for i in range(n):
         row = []
         for j in range(n):
-            row.append(u[i]*u[j])
+            row.append(u[i]*v[j])
         blocks.append(row)
 
     return Tensor(blocks)
@@ -108,29 +108,3 @@ def dot(A, u):
     else:
         assert isinstance(u, Tensor), 'A is Vector but u in not a Tensor'
         return dot(transpose(u), A)
-
-# -----------------------------------------------------------------------------
-
-if __name__ == '__main__':
-    from sympy import Symbol, simplify
-
-    x = Symbol('x')
-    A = deviatoric(Tensor([[10*x, 2, 3], [-1, -2, -3], [0, 0, 1]]))
-    print tr(A)
-
-    print A
-    print transpose(A)
-    print sym(A)
-    print skew(A)
-    print deviatoric(A)
-    print commutator(A, A)
-    print det(A)
-    print inv(A)
-
-    print simplify(inner(A, Id(len(A))))
-
-
-    B = sym(A)
-    v = Vector([1, 1, 1])
-    print dot(B, v)
-    print dot(v, B)

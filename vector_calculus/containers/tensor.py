@@ -94,21 +94,3 @@ class Tensor(object):
     def as_matrix(self):
         '''Return copy as sympy Matrix.'''
         return Matrix(self.A)
-
-# -----------------------------------------------------------------------------
-
-if __name__ == '__main__':
-    from sympy import symbols
-
-    print 'TODO: TESTS!'
-
-    x = symbols('x')
-    A = Tensor([[1, 2], [3, 4]])
-    B = Tensor([[x, 20], [30, 40]])
-    
-    print A
-    print B
-    print (2*(A+B) - B) == (2*A + B)
-    print -A*B/2
-
-    print B**3, B

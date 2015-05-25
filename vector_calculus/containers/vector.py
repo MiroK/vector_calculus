@@ -55,22 +55,10 @@ class Vector(object):
 
     def subs(self, values):
         '''Substitute each component.'''
-        return Vector([ui.subs(values) for ui in self])
+        return Vector([ui.subs(values) if isinstance(ui, Expr) else ui
+                       for ui in self])
     
     # FIXME: Maybe start with Matrix
     def as_matrix(self):
         '''Return copy as sympy Matrix.'''
         return Matrix(self.u)
-
-
-# -----------------------------------------------------------------------------
-
-
-if __name__ == '__main__':
-    from sympy import symbols
-
-    print 'TODO: TESTS!'
-    x = symbols('x')
-
-    u = Vector([x, x+1])
-    print u.u
