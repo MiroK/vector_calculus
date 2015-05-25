@@ -9,7 +9,7 @@ class SurfaceMeasure(Measure):
     SurfaceMeasure is defined over sets which have same geometrical dimension
     one higher than topological dimension.
     '''
-    
+         
     def __init__(self, domain):
         assert domain.gdim == domain.tdim + 1, \
             'Invalid domain tdim(%d) + 1!= gdim(%d)' % (domain.tdim, domain.gdim)
@@ -42,6 +42,19 @@ class SurfaceMeasure(Measure):
         # Nope 
         else:
             raise TypeError('No surface integral of type %s' % type(integrand))
+
+
+class dS(SurfaceMeasure):
+    '''
+    Convenience function for defining surface integrals over 'common' domains.
+    '''
+    # dS(A, B); face of tri; A, B are 2d
+    # dS(A, B, C, index)
+    # dS(A, B, C) face of the tet; A, B, C in 3d
+    # dS(A, B, C, D, index)
+    # dS([[[], []], index) face of rectangle
+    # dS([[], [], []], index) face of box
+    pass
 
 
 # -----------------------------------------------------------------------------

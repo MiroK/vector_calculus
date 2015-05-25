@@ -9,5 +9,6 @@ setup(name = 'vector_calculus',
       url = '',
       packages = ['vector_calculus',
                   'vector_calculus.containers',
-                  'vector_calculus.operators']
+                  'vector_calculus.operators',
+                  'vector_calculus.measures']
 )

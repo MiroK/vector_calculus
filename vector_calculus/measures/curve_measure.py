@@ -37,6 +37,18 @@ class CurveMeasure(Measure):
             raise TypeError('No surface integral of type %s' % type(integrand))
 
 
+class dL(CurveMeasure):
+    '''
+    Convenience function for defining line integrals over 'common' domains.
+    '''
+    # dL(A, B);  line between A, B
+    # dL(A, B, C, index); edge of triangle
+    # dL(A, B, C, D, index); edge of tet
+    # dL([[[], []], index); edge of rectangle
+    # dL([[], [], []], index); edge of box
+    pass
+
+
 # -----------------------------------------------------------------------------
 
 
