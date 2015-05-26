@@ -1,6 +1,3 @@
 ############################################################################### 
-# 		LIMITED VECTOR CALCULUS WITH CARTESIAN BASIS
+# 		LIMITED VECTOR CALCULUS WITH CARTESIAN BASIS                  #
 ############################################################################### 
-
-1. For now there is only support for operations on/that end up being vectors or
-   rank-two tensors
