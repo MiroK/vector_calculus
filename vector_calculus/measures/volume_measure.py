@@ -78,6 +78,9 @@ if __name__ == '__main__':
     f = x
     print f*dV([[1, 10]])
 
+    dW = dV([[1, 10]]) + dV([[2, 3]])
+    print f*dV([[1, 10]]) + f*dV([[2, 3]]), f*dW
+
     f = x + y + z
     print quad(lambdify([x, y, z], f), [0, 3], [0, 2], [0, 1])
     f = x + y
