@@ -28,8 +28,10 @@ class ParameterDomain(object):
             # Check that the limts are either independent of functions of free
             # parameters
             for l in limits:
-                # pi is a number symbol
-                if not isinstance(l, (Number, NumberSymbol)):
+                # If the conversion fails we have an Expr to check
+                try:
+                    float(l)
+                except TypeError:
                     assert len(l.atoms().intersection(free_vars)) > 0, \
                         'Bounds must be defined in terms of existing parameters'
 

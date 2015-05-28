@@ -3,6 +3,8 @@ from sympy import integrate, Expr, Number, NumberSymbol, S
 
 #FIXME 0-measure
 #FIXME Dirac measure
+#FIXME allow numeric for special set.
+# computing quad points for triangles
 
 class Measure(object):
     '''Integral over domain describing points in Cartesian coordinate system.'''

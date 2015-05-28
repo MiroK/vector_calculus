@@ -118,8 +118,9 @@ class dL(CurveMeasure):
 
 
 if __name__ == '__main__':
-    from parametrized_set import Line
-    from sympy import symbols
+    from parametrized_set import Line, ParametrizedSet
+    from parameter_domain import ParameterDomain
+    from sympy import symbols, sin, cos, pi
 
     A = [0, 0]
     B = [1, 0]
@@ -128,4 +129,12 @@ if __name__ == '__main__':
 
     ds = sum([dL(A, B), dL(B, C)], dL(C, A))
 
-    print '>>', 1*ds
+    
+    th, x = symbols('th, x')
+    dC = CurveMeasure(ParametrizedSet(ParameterDomain((th, (0, 2*pi))),
+        (sin(th), cos(th))))
+
+    # FIXME this shows nicely for ellipse the need for speed ie numeric quad
+    # where possible!
+
+    print '>> Ellipse ', 1*dC
